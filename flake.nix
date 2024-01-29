@@ -8,7 +8,10 @@
           pname = "trismegistos";
           version = "0";
           src = ./.;
-          vendorHash = "sha256-rFMqxlMXyAibQvCxqJafb8DozLp9McGWLkzB1qkA6KM=";
+          vendorHash = "sha256-J8zL2pieSFXOmVsNFZuGVUnzvOvDObJReLZOFh+4hiw=";
+
+          CGO_ENABLED = "0";
+          tags = [ "embed" ];
         };
 
         devShell = pkgs.mkShell {

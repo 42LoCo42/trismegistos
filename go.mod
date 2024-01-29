@@ -3,7 +3,7 @@ module github.com/42LoCo42/trismegistos
 go 1.21.6
 
 require (
-	github.com/42LoCo42/echotool v0.0.0-20240129131706-0b12fed7b036
+	github.com/42LoCo42/echotool v0.0.0-20240129135020-62e8111e1cfc
 	github.com/albrow/zoom v0.19.1
 	github.com/labstack/echo/v4 v4.11.4
 )

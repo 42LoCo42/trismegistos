@@ -1,5 +1,5 @@
-github.com/42LoCo42/echotool v0.0.0-20240129131706-0b12fed7b036 h1:NhoTMq/Fus2wXbhGHzI2cM2BFDoDtJP3dcoNxJtcs1k=
-github.com/42LoCo42/echotool v0.0.0-20240129131706-0b12fed7b036/go.mod h1:k5/iajs2foZHr3pcivdMpgIEmWbJxPOac9MLu4Pieyo=
+github.com/42LoCo42/echotool v0.0.0-20240129135020-62e8111e1cfc h1:x6dblDkI43akZqUmWdwzN4M3LXRuWESTCZIdwzld2N8=
+github.com/42LoCo42/echotool v0.0.0-20240129135020-62e8111e1cfc/go.mod h1:k5/iajs2foZHr3pcivdMpgIEmWbJxPOac9MLu4Pieyo=
 github.com/albrow/zoom v0.19.1 h1:x11A7vCZdMmyDT3o4bRpaKqOkzvWT47PKOlEQMfxKDU=
 github.com/albrow/zoom v0.19.1/go.mod h1:cT/naxVieEqwBaG/vUbanwICnO2/nXYLnQqVVMF5NGY=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
