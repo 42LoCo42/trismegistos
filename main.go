@@ -11,9 +11,20 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var (
+	Books *zoom.Collection
+	Users *zoom.Collection
+)
+
 func main() {
 	pool := zoom.NewPool("localhost:6379")
 	defer pool.Close()
+
+	{
+		conn := pool.NewConn()
+		conn.Do("flushdb")
+		defer conn.Close()
+	}
 
 	exBook := &Book{
 		Title:  "In the Watchful City",
@@ -34,21 +45,23 @@ func main() {
 		},
 	}
 
-	books, err := pool.NewCollection(&Book{})
+	var err error
+
+	Books, err = pool.NewCollectionWithOptions(&Book{}, zoom.DefaultCollectionOptions.WithIndex(true))
 	if err != nil {
 		log.Fatal("could not create books collection: ", err)
 	}
 
-	if err := books.Save(exBook); err != nil {
+	if err := Books.Save(exBook); err != nil {
 		log.Fatal("could not save example book: ", err)
 	}
 
-	users, err := pool.NewCollection(&User{})
+	Users, err = pool.NewCollection(&User{})
 	if err != nil {
 		log.Fatal("could not create users collection: ", err)
 	}
 
-	if err := users.Save(exUser); err != nil {
+	if err := Users.Save(exUser); err != nil {
 		log.Fatal("could not save example user: ", err)
 	}
 
@@ -62,7 +75,7 @@ func main() {
 		// find a user by name
 		func(name string) (*User, error) {
 			user := &User{}
-			if err := users.Find(name, user); err != nil {
+			if err := Users.Find(name, user); err != nil {
 				return nil, err
 			}
 			return user, nil
@@ -82,14 +95,10 @@ func main() {
 	}, echotool.Auth)
 
 	bookG := api.Group("/book")
-
-	bookG.GET("/:id", func(c echo.Context) error {
-		book := &Book{}
-		if err := books.Find(c.Param("id"), book); err != nil {
-			return echotool.Die(http.StatusNotFound, err, "book not found")
-		}
-		return c.JSON(http.StatusOK, book)
-	}, echotool.Auth)
+	bookG.GET("s", GetBooks, echotool.Auth)
+	bookG.GET("/:id", GetBook, echotool.Auth)
+	bookG.PUT("/:id", PutBook, echotool.Auth)
+	bookG.DELETE("/:id", DelBook, echotool.Auth)
 
 	e.Start(":8080")
 }
