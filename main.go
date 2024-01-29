@@ -1,8 +1,7 @@
 package main
 
 import (
-	"embed"
-	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,20 +9,10 @@ import (
 
 	"github.com/42LoCo42/echotool"
 	"github.com/albrow/zoom"
+	"github.com/labstack/echo/v4"
 )
 
-//go:embed static
-var embeddedFS embed.FS
-
 func main() {
-	doEmbed := flag.CommandLine.Bool("embed", false, "Embed static data into application")
-	flag.Parse()
-
-	var staticFS http.FileSystem = nil
-	if *doEmbed {
-		staticFS = http.FS(embeddedFS)
-	}
-
 	pool := zoom.NewPool("localhost:6379")
 	defer pool.Close()
 
@@ -58,6 +47,10 @@ func main() {
 	if e == nil {
 		os.Exit(1)
 	}
+
+	e.GET("/foo", func(c echo.Context) error {
+		return c.String(http.StatusOK, fmt.Sprint(c.Get("user")))
+	})
 
 	e.Start(":8080")
 }
