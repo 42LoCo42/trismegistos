@@ -96,6 +96,7 @@ func main() {
 
 	bookG := api.Group("/book")
 	bookG.GET("s", GetBooks, echotool.Auth)
+	bookG.PUT("s", PutBook, echotool.Auth)
 	bookG.GET("/:id", GetBook, echotool.Auth)
 	bookG.PUT("/:id", PutBook, echotool.Auth)
 	bookG.DELETE("/:id", DelBook, echotool.Auth)
