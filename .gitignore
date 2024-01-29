@@ -1,0 +1,5 @@
+/.direnv
+/.env
+/cookie
+/dump.rdb
+/node_modules
